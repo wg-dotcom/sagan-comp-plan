@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sagan Sales Compensation Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  :root {
+    --ink: #0f1020;
+    --muted: #5b5b6b;
+    --faint: #8a8a99;
+    --line: #e6e6ee;
+    --bg: #ffffff;
+    --panel: #fafaff;
+    --indigo: #6366f1;
+    --violet: #8b5cf6;
+    --purple: #a855f7;
+    --green: #16a34a;
+    --amber: #d97706;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f2f2f7;
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 1040px;
+    margin: 24px auto;
+    background: var(--bg);
+    border-radius: 18px;
+    box-shadow: 0 10px 40px rgba(15,16,32,0.08);
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .head {
+    padding: 40px 44px 28px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .head::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--indigo), var(--violet), var(--purple));
+  }
+  .brand {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--indigo);
+    margin-bottom: 10px;
+  }
+  .head h1 {
+    font-size: 2.05rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+  }
+  .head .sub {
+    color: var(--faint);
+    font-size: 0.92rem;
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* ── Body grid ── */
+  .body { padding: 28px 44px 40px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 22px;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+  }
+  .card.feature {
+    background: linear-gradient(160deg, #f7f6ff 0%, #ffffff 60%);
+    border-color: #d9d4fb;
+    box-shadow: 0 4px 18px rgba(99,102,241,0.07);
+  }
+  .card.wide { grid-column: 1 / -1; }
+
+  .split { display: flex; gap: 18px; }
+  .split-half { flex: 1; }
+  .split-half + .split-half {
+    padding-left: 18px;
+    border-left: 1px solid var(--line);
+  }
+  .split-half h2 { font-size: 1.02rem; }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 99px;
+    margin-bottom: 10px;
+    align-self: flex-start;
+  }
+  .tag.front { background: #eef2ff; color: #4f46e5; }
+  .tag.wg { background: #f3e8ff; color: #9333ea; }
+  .tag.strat { background: #ecfdf5; color: #15803d; }
+  .tag.advisor { background: #fff7ed; color: #c2410c; }
+  .tag.am { background: #f0f9ff; color: #0369a1; }
+  .tag.mgr { background: #f5f5f5; color: #4b5563; }
+
+  .card h2 {
+    font-size: 1.12rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .role-line {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .card p { font-size: 0.86rem; color: #3a3a48; margin-bottom: 8px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card strong { color: var(--ink); font-weight: 700; }
+
+  /* metric chips */
+  .metrics {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 4px 0 14px;
+  }
+  .metric {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 8px 12px;
+    min-width: 92px;
+  }
+  .metric .v {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--indigo);
+    letter-spacing: -0.02em;
+  }
+  .metric .k {
+    font-size: 0.66rem;
+    color: var(--faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    margin-top: 1px;
+  }
+
+  /* mini table */
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 4px; }
+  th, td {
+    text-align: left;
+    font-size: 0.8rem;
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  th {
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--faint);
+    font-weight: 700;
+  }
+  td:last-child, th:last-child { text-align: right; }
+  td .num { font-weight: 700; color: var(--ink); }
+
+  /* the "how to earn" condition list */
+  .conds { list-style: none; margin: 6px 0 4px; }
+  .conds li {
+    font-size: 0.85rem;
+    color: #3a3a48;
+    padding: 6px 0 6px 26px;
+    position: relative;
+    border-bottom: 1px dashed var(--line);
+  }
+  .conds li:last-child { border-bottom: none; }
+  .conds li::before {
+    content: counter(c);
+    counter-increment: c;
+    position: absolute;
+    left: 0; top: 5px;
+    width: 17px; height: 17px;
+    background: var(--violet);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.62rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .conds { counter-reset: c; }
+
+  /* ── Share allocation ── */
+  .shares { margin: 8px 0 4px; }
+  .share-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 11px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    margin-bottom: 6px;
+    background: var(--panel);
+  }
+  .share-row .sh-role { font-size: 0.83rem; font-weight: 600; color: #3a3a48; }
+  .share-row .sh-x {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--indigo);
+    letter-spacing: -0.01em;
+  }
+  .share-row .sh-x.ramp {
+    font-size: 0.74rem;
+    color: var(--violet);
+    background: #f3e8ff;
+    padding: 2px 9px;
+    border-radius: 99px;
+  }
+
+  /* ── Earnings bar ── */
+  .earn { margin: 14px 0 4px; }
+  .earn-track {
+    position: relative;
+    height: 38px;
+    border-radius: 9px;
+    overflow: hidden;
+    display: flex;
+    border: 1px solid var(--line);
+  }
+  .earn-base {
+    flex: 0 0 38%;
+    background: #eef0f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: var(--faint);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .earn-above {
+    flex: 1;
+    background: linear-gradient(90deg, var(--indigo), var(--violet), var(--purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+  .earn-floor {
+    position: absolute;
+    left: 38%;
+    top: -3px;
+    bottom: -3px;
+    width: 2px;
+    background: var(--ink);
+  }
+  .earn-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 0.64rem;
+    font-weight: 600;
+    color: var(--faint);
+  }
+  .earn-labels .floor-tag { color: var(--ink); font-weight: 800; }
+
+  /* ── Gate flow ── */
+  .gates {
+    display: flex;
+    align-items: stretch;
+    margin: 14px 0 4px;
+  }
+  .gate {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .gate .g-num {
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: var(--violet);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .gate .g-main { font-size: 0.95rem; font-weight: 800; margin: 2px 0 1px; }
+  .gate .g-sub { font-size: 0.68rem; color: var(--faint); line-height: 1.35; }
+  .gate.unlock {
+    background: linear-gradient(160deg, #f3e8ff, #ffffff);
+    border-color: #d9d4fb;
+  }
+  .gate.unlock .g-main { color: var(--purple); }
+  .gate-arrow {
+    align-self: center;
+    color: var(--violet);
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: 0 8px;
+    flex: 0 0 auto;
+  }
+
+  .note {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #f7f6ff;
+    border-left: 3px solid var(--violet);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #46465a;
+  }
+  .note strong { color: var(--violet); }
+
+  /* section heading */
+  .section-h {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 26px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-h::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .mech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .mech {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .mech.wide { grid-column: 1 / -1; }
+  .mech h3 {
+    font-size: 0.92rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .mech p { font-size: 0.82rem; color: #3a3a48; }
+
+  .foot {
+    padding: 18px 44px 30px;
+    border-top: 1px solid var(--line);
+    font-size: 0.74rem;
+    color: var(--faint);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* ── Print ── */
+  @media print {
+    body { background: #fff; }
+    .sheet { box-shadow: none; margin: 0; max-width: 100%; border-radius: 0; }
+    .card, .mech { break-inside: avoid; }
+    .section-h { break-after: avoid; }
+    @page { margin: 12mm; }
+  }
+
+  @media (max-width: 720px) {
+    .grid, .mech-grid { grid-template-columns: 1fr; }
+    .head, .body, .foot { padding-left: 24px; padding-right: 24px; }
+    .gates { flex-direction: column; }
+    .gate-arrow { transform: rotate(90deg); padding: 4px 0; }
+    .split { flex-direction: column; }
+    .split-half + .split-half { padding-left: 0; border-left: none; padding-top: 14px; border-top: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="head">
+    <div class="brand">Sagan · Redefining Recruitment</div>
+    <h1>Sales Compensation Plan</h1>
+    <div class="sub">Effective June 2026 · How every revenue role gets paid, on one page</div>
+  </header>
+
+  <div class="body">
+
+    <div class="section-h">The Roles</div>
+    <div class="grid">
+
+      <!-- VP New Business -->
+      <div class="card">
+        <span class="tag front">Front Door</span>
+        <h2>VP, New Business</h2>
+        <div class="role-line">Bring new logos in. Everything downstream is someone else&#8217;s job.</div>
+        <div class="metrics">
+          <div class="metric"><div class="v">5</div><div class="k">Target deals / month</div></div>
+        </div>
+        <table>
+          <tr><th>Event</th><th>Commission</th></tr>
+          <tr><td>White Glove sale</td><td class="num">$500</td></tr>
+          <tr><td>Membership sale</td><td class="num">$600</td></tr>
+          <tr><td>White Glove, 6th+ in calendar month</td><td class="num">$625</td></tr>
+          <tr><td>Membership, 6th+ in calendar month</td><td class="num">$750</td></tr>
+        </table>
+        <p>Accelerators are not retroactive. Only the deals after quota get the bump. Channel partner fees, affiliate fees, and discounts do not cut your flat commission.</p>
+      </div>
+
+      <!-- White Glove pricing + team -->
+      <div class="card">
+        <span class="tag wg">Front Door &middot; Pricing</span>
+        <h2>White Glove: What You Can Offer</h2>
+        <div class="role-line">No freelancing on price. These are the only three options.</div>
+        <table>
+          <tr><th>Rate</th><th>Deposit &amp; structure</th></tr>
+          <tr><td class="num">35%</td><td>$500 non-refundable, applied to fee. Standard success-based.</td></tr>
+          <tr><td class="num">30%</td><td>$1,000 non-refundable, applied to fee. Larger up-front.</td></tr>
+          <tr><td class="num">25%</td><td>Paid in full, up front. Retained, not success-based.</td></tr>
+        </table>
+        <div class="note">If a member pays in full up front, you earn an extra <strong>$250</strong> on top of your flat rate.</div>
+      </div>
+
+      <!-- Member Strategist (FEATURE) -->
+      <div class="card feature wide">
+        <span class="tag strat">Core / Key Accounts</span>
+        <h2>Member Strategist</h2>
+        <div class="role-line">You drive marginal hires out of established member accounts.</div>
+        <div class="metrics">
+          <div class="metric"><div class="v">10%</div><div class="k">Of every $ above floor</div></div>
+          <div class="metric"><div class="v">$20K</div><div class="k">Monthly collection floor</div></div>
+          <div class="metric"><div class="v">$6K</div><div class="k">Account eligibility mark</div></div>
+        </div>
+        <p><strong>Two gates must both clear before you earn:</strong></p>
+        <div class="gates">
+          <div class="gate">
+            <div class="g-num">Gate 1</div>
+            <div class="g-main">Account eligible</div>
+            <div class="g-sub">Account clears the $6K collections mark</div>
+          </div>
+          <div class="gate-arrow">&rarr;</div>
+          <div class="gate">
+            <div class="g-num">Gate 2</div>
+            <div class="g-main">You clear $20K</div>
+            <div class="g-sub">$20K collected across your eligible accounts</div>
+          </div>
+          <div class="gate-arrow">&rarr;</div>
+          <div class="gate unlock">
+            <div class="g-num">Unlock</div>
+            <div class="g-main">10%</div>
+            <div class="g-sub">of every $ collected above the floor</div>
+          </div>
+        </div>
+        <div class="earn">
+          <div class="earn-track">
+            <div class="earn-base">No commission</div>
+            <div class="earn-floor"></div>
+            <div class="earn-above">10% of every $ above</div>
+          </div>
+          <div class="earn-labels">
+            <span>$0</span>
+            <span class="floor-tag">$20K floor</span>
+            <span>&rarr;</span>
+          </div>
+        </div>
+        <div class="note">At an average hiring fee of <strong>$4.5K</strong>, the floor is cleared inside accounts that already passed the $6K mark. Everything collected past <strong>$20K</strong> earns at 10%.</div>
+        <p style="margin-top:10px;">By default, once an account&#8217;s floor is reached, the strategist gets credit for every hire that flows through it. Sagan may split larger accounts across multiple strategists at its discretion. If you think you should get credit for a hire that did not go through your form, let management know and we&#8217;ll decide case by case.</p>
+      </div>
+
+      <!-- Talent Advisor (FEATURE) -->
+      <div class="card feature">
+        <span class="tag advisor">Core / Key Accounts</span>
+        <h2>Talent Advisor</h2>
+        <div class="role-line">You close roles. Your comp is individual, no pool.</div>
+        <div class="earn">
+          <div class="earn-track">
+            <div class="earn-base">Base covers this</div>
+            <div class="earn-floor"></div>
+            <div class="earn-above">5% of every $ above</div>
+          </div>
+          <div class="earn-labels">
+            <span>$0</span>
+            <span class="floor-tag">$20K floor</span>
+            <span>&rarr;</span>
+          </div>
+        </div>
+        <p>Your base salary covers a production floor of <strong>$20K in closed fees per month</strong>. Above that, you earn <strong>5% of every dollar of closed volume above $20K</strong>, paid in the month you earn it.</p>
+        <p>Fee size is what counts, not headcount. Closing two $8K technical roles counts the same as several $3K admin roles toward the floor.</p>
+        <div class="note">Need a specialist (tech, finance) to close a hard role? Loop them in. That&#8217;s what base salary funds.</div>
+      </div>
+
+      <!-- White Glove Team -->
+      <div class="card wide">
+        <span class="tag wg">Fulfillment</span>
+        <h2>White Glove Team</h2>
+        <div class="role-line">Collaborative work, so the bonus is pooled.</div>
+        <div class="split">
+          <div class="split-half">
+            <p><strong>Bonus pool:</strong> 5% of monthly gross White Glove revenue, cash collected (not invoiced), net of channel partner and affiliate fees. Paid monthly.</p>
+            <p>Candidates move across the team freely, and the pool reflects that.</p>
+            <div class="note"><strong>Membership conversion:</strong> every White Glove member you convert before their final payment is collected counts toward the pool as a <strong>$10,000 placement fee</strong>. A conversion is a bigger lift than finishing a placement, and the credit reflects that.</div>
+          </div>
+          <div class="split-half">
+            <p><strong>How the pool splits.</strong> Each person holds a number of shares, and the pool divides proportionally.</p>
+            <div class="shares">
+              <div class="share-row"><span class="sh-role">Manager / Lead</span><span class="sh-x">2&times;</span></div>
+              <div class="share-row"><span class="sh-role">Talent Advisor</span><span class="sh-x">1&times;</span></div>
+              <div class="share-row"><span class="sh-role">New hire</span><span class="sh-x ramp">ramping &rarr; 1&times;</span></div>
+            </div>
+            <div class="note">New hires ramp over <strong>12 months</strong> before reaching a full 1&times; share. The team lead sets the exact ramp schedule, the partial share during ramp, and the timing to a full share, for each new hire.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Manager -->
+      <div class="card">
+        <span class="tag am">Core / Key Accounts</span>
+        <h2>Account Manager</h2>
+        <div class="role-line">Relationship depth, retention, and account health. Not per-hire volume.</div>
+        <p>Base salary, with variable upside through bonuses, contests, renewal incentives, agent-adoption pushes, and 30-day challenges.</p>
+        <p>These run live and rotating. There will always be something to compete for.</p>
+      </div>
+
+      <!-- Leadership -->
+      <div class="card">
+        <span class="tag mgr">Leadership</span>
+        <div class="split">
+          <div class="split-half">
+            <h2>Head of Revenue</h2>
+            <div class="role-line">Individual executive comp plan, written directly.</div>
+            <p>Tied to overall production and timeline targets.</p>
+          </div>
+          <div class="split-half">
+            <h2>Head of Recruiting <span style="font-weight:600;color:var(--faint);">(Core)</span></h2>
+            <div class="role-line">Individual executive comp plan, written directly.</div>
+            <p>Tied to overall <strong>Core</strong> production and timeline targets.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Mechanics ── -->
+    <div class="section-h">How &amp; When You Get Paid</div>
+    <div class="mech-grid">
+
+      <div class="mech">
+        <h3>What triggers your commission</h3>
+        <table>
+          <tr><td>VP &middot; White Glove</td><td>Deposit collected; payout begins when the placement fee is paid</td></tr>
+          <tr><td>VP &middot; Membership</td><td>First month&#8217;s payment, unless a guarantee is in place</td></tr>
+          <tr><td>White Glove Team</td><td>Monthly pool on cash received</td></tr>
+          <tr><td>Member Strategist</td><td>Hire closes and Sagan is paid</td></tr>
+          <tr><td>Talent Advisor</td><td>Hire closes, above your floor</td></tr>
+        </table>
+      </div>
+
+      <div class="mech">
+        <h3>Guarantee periods</h3>
+        <p>If a deal carries a guarantee window or pay-over-time plan, it counts toward your quota immediately, but payment is held until the member clears the window. During that window you work with the recruiting team to protect the placement. Your payout depends on it.</p>
+      </div>
+
+      <div class="mech wide">
+        <h3>Membership cancellations</h3>
+        <p>Members have a defined early-exit window. Money collected for work already performed is not returned. Your commission is paid once the member clears the window. A cancellation inside it means the commission is not paid. Offering a guarantee is at the sales rep&#8217;s discretion: it can help close a marginal sale, but it delays the payout.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer class="foot">
+    <span>Sagan Recruitment &middot; Sales Compensation Plan</span>
+    <span>Effective June 2026 &middot; Internal &middot; Numbers final unless noted by your manager</span>
+  </footer>
+
+</div>
+</body>
+</html>

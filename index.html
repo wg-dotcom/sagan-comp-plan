@@ -280,6 +280,7 @@
     background: var(--ink);
   }
   .earn-labels {
+    position: relative;
     display: flex;
     justify-content: space-between;
     margin-top: 6px;
@@ -287,7 +288,23 @@
     font-weight: 600;
     color: var(--faint);
   }
-  .earn-labels .floor-tag { color: var(--ink); font-weight: 800; }
+  .earn-labels .floor-tag {
+    position: absolute;
+    left: 38%;
+    transform: translateX(-50%);
+    color: var(--ink);
+    font-weight: 800;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .earn-labels .floor-tag::before {
+    content: "\25B2";
+    display: block;
+    font-size: 0.5rem;
+    line-height: 1;
+    margin-bottom: 2px;
+    color: var(--ink);
+  }
 
   /* ── Gate flow ── */
   .gates {
